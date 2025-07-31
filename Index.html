@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P.A.C.T. - Paraclete Advocacy for Children & Teens</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Tailwind Colors for Ghibli vibe with softer tones */
+        :root {
+            --color-ghibli-orange: #F08A4B;  /* Softer Burnt Orange */
+            --color-ghibli-green: #B5D99C;   /* Muted, Softer Sage Green */
+            --color-ghibli-cream: #FFFBF5;   /* Lighter, more ethereal Cream */
+            --color-ghibli-dark-green: #4B775B; /* Richer, less harsh Forest Green */
+            --color-ghibli-dark-orange: #D96E1B; /* Deeper version of the new orange */
+            --color-ghibli-text: #2A2A2A;    /* Dark grey for good contrast */
+        }
+
+        .bg-ghibli-orange { background-color: var(--color-ghibli-orange); }
+        .text-ghibli-orange { color: var(--color-ghibli-orange); }
+        .bg-ghibli-green { background-color: var(--color-ghibli-green); }
+        .text-ghibli-green { color: var(--color-ghibli-green); }
+        .bg-ghibli-cream { background-color: var(--color-ghibli-cream); }
+        .text-ghibli-cream { color: var(--color-ghibli-cream); }
+        .text-ghibli-dark-green { color: var(--color-ghibli-dark-green); }
+        .bg-ghibli-dark-green { background-color: var(--color-ghibli-dark-green); }
+        .text-ghibli-dark-orange { color: var(--color-ghibli-dark-orange); }
+        .bg-ghibli-dark-orange { background-color: var(--color-ghibli-dark-orange); }
+        .text-ghibli-text { color: var(--color-ghibli-text); }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-ghibli-cream); /* Overall cream background */
+            color: var(--color-ghibli-text); /* Default text color */
+        }
+
+        /* Smooth scroll for internal links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Enhanced hover effect for cards/sections */
+        .card-hover-effect {
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-10px); /* More pronounced lift */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2); /* Stronger, softer shadow */
+        }
+
+        /* Enhanced Button hover effect */
+        .btn-hover-effect {
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-hover-effect:hover {
+            transform: translateY(-4px); /* Slightly more lift */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* Deeper shadow */
+        }
+
+        /* Hero section background pattern animation */
+        @keyframes subtleMove {
+            0% { background-position: 10% 20%, 90% 80%; }
+            50% { background-position: 12% 22%, 88% 78%; }
+            100% { background-position: 10% 20%, 90% 80%; }
+        }
+
+        .hero-pattern {
+            background-image: radial-gradient(circle at 10% 20%, var(--color-ghibli-orange) 0%, rgba(240,138,75,0) 70%),
+                              radial-gradient(circle at 90% 80%, var(--color-ghibli-green) 0%, rgba(181,217,156,0) 70%);
+            background-size: 80% 80%;
+            background-repeat: no-repeat;
+            opacity: 0.25; /* Slightly less opaque for subtlety */
+            animation: subtleMove 20s infinite alternate ease-in-out; /* Slow, gentle animation */
+            z-index: -1; /* Ensure it's behind the content, but above the logo background */
+        }
+
+        /* Subtle logo background for sections */
+        .subtle-logo-background {
+            background-image: url('logo.jpg');
+            background-size: 200px; /* Adjust size as needed */
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.05; /* Very subtle */
+            position: absolute; /* Position relative to parent */
+            inset: 0; /* Cover the entire parent */
+            z-index: 0; /* Default z-index for sections */
+            pointer-events: none; /* Make sure it doesn't interfere with clicks */
+        }
+
+        /* Hero specific logo background */
+        .hero-logo-background {
+            background-image: url('logo.jpg');
+            background-size: cover; /* Make the image cover the entire section */
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 1; /* Full opacity for the logo */
+            position: absolute;
+            inset: 0;
+            z-index: -2; /* Furthest back */
+            pointer-events: none;
+        }
+
+        /* Specific styles for stat card hover explanation */
+        .stat-explanation-overlay {
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            backdrop-filter: blur(3px); /* Subtle blur effect */
+        }
+        .group:hover .stat-explanation-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-ghibli-dark-green text-ghibli-cream py-5 shadow-xl">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
+            <div class="flex items-center gap-4 mb-4 md:mb-0">
+                <!-- Logo and P.A.C.T. title -->
+                <img src="logo.jpg" alt="P.A.C.T. Logo - Hands holding a sprouting seed" class="h-12 w-auto rounded-lg">
+                <h1 class="text-4xl font-extrabold tracking-wide">P.A.C.T.</h1>
+            </div>
+            <nav>
+                <ul class="flex flex-wrap justify-center space-x-4 md:space-x-8 text-lg font-medium">
+                    <li><a href="#mission" class="hover:text-ghibli-orange transition duration-300 px-3 py-2 rounded-md">Our Mission</a></li>
+                    <li><a href="#statistics" class="hover:text-ghibli-orange transition duration-300 px-3 py-2 rounded-md">The Need</a></li>
+                    <li><a href="#personal-story" class="hover:text-ghibli-orange transition duration-300 px-3 py-2 rounded-md">My Story</a></li>
+                    <li><a href="#get-involved" class="hover:text-ghibli-orange transition duration-300 px-3 py-2 rounded-md">Get Involved</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative text-white py-24 md:py-36 overflow-hidden">
+        <div class="hero-logo-background"></div> <!-- Logo background for hero section -->
+        <div class="absolute inset-0 hero-pattern z-0"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <p class="text-xl md:text-5xl italic font-medium mb-6 max-w-4xl mx-auto">
+                “Speak out on behalf of the voiceless, and for the rights of all who are vulnerable.”
+                <span class="block text-base mt-3 font-semibold">— Proverbs 31:8</span>
+            </p>
+            <!--<h2 class="text-4xl md:text-6xl font-extrabold leading-tight mb-10 tracking-tight">
+                My name is Madison Freeman, and that’s exactly what I’m being called to do.
+            </h2>-->
+            <div class="max-w-3xl mx-auto">
+                <p class="text-lg md:text-xl leading-relaxed mb-8">
+                    Remember as a kid in a compromising situation and you felt helpless, voiceless, and to an extent defeated?
+                    That’s the reality of life for some.
+                </p>
+                <a href="#get-involved" class="inline-block bg-ghibli-dark-green text-ghibli-cream font-semibold py-4 px-10 rounded-full shadow-lg hover:bg-opacity-90 btn-hover-effect text-lg">
+                    Discover How You Can Make a Difference
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="relative py-20 md:py-32 bg-ghibli-cream px-6">
+        <div class="subtle-logo-background"></div> <!-- Subtle logo background -->
+        <div class="container mx-auto max-w-5xl bg-white rounded-3xl shadow-2xl p-8 md:p-14 card-hover-effect relative z-10">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-center text-ghibli-dark-green mb-12 leading-tight">Our Mission: A <span class="text-ghibli-dark-orange">Voice to the Voiceless</span></h2>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="jesus.png" alt="Illustrative image of compassion" class="rounded-2xl shadow-xl w-full h-auto object-cover">
+                </div>
+                <div class="md:w-1/2">
+                    <p class="text-lg md:text-xl leading-relaxed mb-6 text-ghibli-text">
+                        Here at P.A.C.T. (Paraclete Advocacy for Children & Teens), we are guided by the love and justice of Christ. Our mission is to be a <strong class="text-ghibli-dark-orange">Voice to the Voiceless</strong>—serving children and teens from disadvantaged communities who often face the court system alone.
+                    </p>
+                    <p class="text-lg md:text-xl leading-relaxed text-ghibli-text">
+                        Through prayerfully trained volunteers, we walk alongside each child with compassion and purpose, advocating for their dignity, healing, and future. With God as our foundation, we strive to break cycles of silence and suffering, planting seeds of hope that grow into generations of faithful, whole-hearted servants.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="statistics" class="py-20 md:py-32 bg-ghibli-dark-green text-ghibli-cream px-6">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-16 leading-tight text-ghibli-cream">The Urgent Need: Why P.A.C.T. Matters</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Children in Crisis Card with Hover Explanation -->
+                <div class="bg-ghibli-dark-green rounded-3xl shadow-2xl p-8 md:p-12 card-hover-effect border border-ghibli-green group relative overflow-hidden">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 text-ghibli-orange">Children in Crisis: Unheard Voices</h3>
+                    <p class="text-lg leading-relaxed mb-6 text-ghibli-cream">
+                        Each year, over 600,000 children in the U.S. experience abuse or neglect. Many of them enter a complex foster care or legal system where their voices go unheard.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-around items-center gap-6 mb-8">
+                        <div class="bg-ghibli-orange text-ghibli-dark-green p-6 rounded-full text-center shadow-md w-40 h-40 flex flex-col items-center justify-center">
+                            <span class="text-4xl font-extrabold leading-none">600K+</span>
+                            <span class="text-sm font-medium mt-1">Children Abused/Neglected</span>
+                        </div>
+                        <div class="bg-ghibli-cream text-ghibli-dark-green p-6 rounded-full text-center shadow-md w-40 h-40 flex flex-col items-center justify-center">
+                            <span class="text-4xl font-extrabold leading-none">~97K</span>
+                            <span class="text-sm font-medium mt-1">Advocates Available</span>
+                        </div>
+                    </div>
+                    <p class="text-lg leading-relaxed mb-8 text-ghibli-cream">
+                        For every 600,000 children, there are only around 97,000 advocates—leaving thousands without someone to stand beside them. Children are falling through the cracks, and the impact is long-term.
+                    </p>
+                    <p class="text-xl font-bold text-ghibli-orange mb-4">
+                        What happens to these children when no one speaks up?
+                    </p>
+                    <p class="text-xl font-bold text-ghibli-orange">
+                        How many more have to suffer before we rise up as a community?
+                    </p>
+                    <!-- Hover Explanation Overlay -->
+                    <div class="stat-explanation-overlay absolute inset-0 bg-ghibli-dark-green bg-opacity-95 flex items-center justify-center p-8 rounded-3xl">
+                        <p class="text-ghibli-cream text-xl text-center font-medium leading-relaxed">
+                            This staggering number highlights the immense scale of the challenge. Many of these children are left without proper legal representation or emotional support, leading to profound long-term consequences. P.A.C.T. steps in to fill this critical gap, ensuring every child has a voice.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Aging Out Card with Hover Explanation -->
+                <div class="bg-ghibli-dark-green rounded-3xl shadow-2xl p-8 md:p-12 card-hover-effect border border-ghibli-green group relative overflow-hidden">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 text-ghibli-orange">Aging Out: A Harsh Reality & What's Lacking</h3>
+                    <p class="text-lg leading-relaxed mb-6 text-ghibli-cream">
+                        Every year, about <strong class="text-ghibli-orange">23,000 youth</strong> age out of foster care. The statistics are heartbreaking:
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-ghibli-orange text-ghibli-dark-green p-4 rounded-xl text-center shadow-md">
+                            <span class="block text-3xl font-extrabold">50%</span>
+                            <span class="block text-sm font-medium mt-1">Homeless / Unemployed (1st year)</span>
+                        </div>
+                        <div class="bg-ghibli-cream text-ghibli-dark-green p-4 rounded-xl text-center shadow-md">
+                            <span class="block text-3xl font-extrabold">38%</span>
+                            <span class="block text-sm font-medium mt-1">Homeless by age 26</span>
+                        </div>
+                        <div class="bg-ghibli-cream text-ghibli-dark-green p-4 rounded-xl text-center shadow-md">
+                            <span class="block text-3xl font-extrabold">30%</span>
+                            <span class="block text-sm font-medium mt-1">Law Run-ins by age 21</span>
+                        </div>
+                        <div class="bg-ghibli-orange text-ghibli-dark-green p-4 rounded-xl text-center shadow-md">
+                            <span class="block text-3xl font-extrabold">~70%</span>
+                            <span class="block text-sm font-medium mt-1">Men Incarcerated (mid-20s)</span>
+                        </div>
+                    </div>
+                    <p class="text-lg leading-relaxed mt-8 text-ghibli-cream">
+                        What are they lacking? They lack guidance, mentors, stable housing, mental health services, and real-life skills. And that’s exactly what P.A.C.T. is here to provide—a voice of compassion and healing while bridging the gaps between families, communities, and the system itself.
+                    </p>
+                    <!-- Hover Explanation Overlay -->
+                    <div class="stat-explanation-overlay absolute inset-0 bg-ghibli-dark-green bg-opacity-95 flex items-center justify-center p-8 rounded-3xl">
+                        <p class="text-ghibli-cream text-xl text-center font-medium leading-relaxed">
+                            Youth who age out of the foster care system without support face immense challenges, often leading to homelessness, unemployment, and incarceration. P.A.C.T. works to provide the essential guidance, mentorship, and life skills needed to break these cycles and build brighter futures.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Story Section -->
+    <section id="personal-story" class="relative py-20 md:py-32 px-6" style="background-image: url('Background.png'); background-size: cover; background-position: center;">
+
+        <div class="subtle-logo-background"></div> <!-- Subtle logo background -->
+        <div class="container mx-auto max-w-5xl bg-white rounded-3xl shadow-2xl p-8 md:p-14 card-hover-effect relative z-10">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-center text-ghibli-dark-green mb-12 leading-tight">My Personal Calling: Why I Advocate</h2>
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="KLOE.JPG" alt="Illustrative image of hope" class="rounded-2xl shadow-xl w-full h-auto object-cover">
+                </div>
+                <div class="md:w-1/2">
+                    <p class="text-lg md:text-xl leading-relaxed mb-6 text-ghibli-text">
+                        For me, this mission is personal. My niece, Kloe, lost her life tragically at the age of 3. Child Protective Services had been in and out of the home for her and her sister—but no one took decisive action. No one spoke up. She fell through the cracks.
+                    </p>
+                    <p class="text-lg md:text-xl leading-relaxed mb-6 text-ghibli-text">
+                        I know what it’s like to be unheard within the court system. I had to redo interviews simply because they weren’t listening. I was returned to abusive environments where my safety was in jeopardy. The result? A rapid decline in my mental health, my faith shaken, and a complete distrust in the system that was supposed to protect me.
+                    </p>
+                    <p class="text-lg md:text-xl leading-relaxed mb-6 text-ghibli-text">
+                        I speak now for Kloe, for myself, and for the countless children like Gabriel Fernandez, Jhessye Shockley, Zymere Perkins, Adrian Jones, Harmony Montgomery—young lives lost because they were ignored.
+                    </p>
+                    <p class="text-lg md:text-xl leading-relaxed text-ghibli-text">
+                        As a child advocate, I want to be that consistent voice. Research shows that when a child has an advocate—like a CASA volunteer—they are more likely to receive critical services, succeed in school, and be placed in safe, permanent homes faster.
+                    </p>
+                </div>
+            </div>
+            <p class="text-center text-2xl font-bold text-ghibli-dark-green mt-12 leading-relaxed">
+                This isn’t just meaningful work. <span class="text-ghibli-dark-orange">It’s necessary.</span>
+            </p>
+            <p class="text-center text-lg md:text-xl leading-relaxed mt-6 max-w-3xl mx-auto text-ghibli-text">
+                The system is overwhelmed, and far too many children—especially those from marginalized communities—fall through the cracks. I want to be part of closing those gaps, and ensuring that every child feels seen, protected, and empowered.
+            </p>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section id="get-involved" class="py-20 md:py-32 bg-ghibli-orange text-ghibli-dark-green px-6">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-10 leading-tight text-ghibli-dark-green">💬 Ready to Make a Difference?</h2>
+            <p class="text-xl md:text-2xl leading-relaxed mb-12 text-ghibli-dark-green">
+                Volunteer and get involved with organizations like CASA, Foster360, New Culture, and P.A.C.T.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6 mb-16">
+                <!--<a href="#" class="inline-block bg-ghibli-dark-green text-ghibli-cream font-bold py-4 px-10 rounded-full shadow-lg btn-hover-effect text-xl">
+                    Mentor. Show up. Be present.
+                </a>-->
+                <a href="#" class="inline-block bg-ghibli-dark-green text-ghibli-cream font-bold py-4 px-10 rounded-full shadow-lg btn-hover-effect text-xl">
+                    Speak up. Show up. Be present.
+                </a>
+            </div>
+            <p class="text-xl md:text-2xl leading-relaxed mb-6 text-ghibli-dark-green">
+                Follow me on Instagram: <a href="https://instagram.com/paracleteadvocacy_ct" target="_blank" class="text-ghibli-dark-green underline font-semibold hover:text-ghibli-dark-orange transition duration-300">@paracleteadvocacy_ct</a>
+            </p>
+            <div style="height: 20px;"></div>
+
+            <p class="text-xl md:text-2xl leading-relaxed mb-8 text-ghibli-dark-green">
+
+                Let's raise a generation that no longer falls through the cracks-but rises with purpose.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative bg-ghibli-dark-green text-ghibli-cream py-8 text-center shadow-inner">
+        <div class="subtle-logo-background opacity-5" style="background-size: 150px;"></div> <!-- Subtle logo background for footer, slightly more opaque -->
+        <div class="container mx-auto px-6 relative z-10">
+            <p class="text-lg">&copy; 2025 P.A.C.T. All rights reserved.</p>
+            <p class="text-sm mt-2 opacity-80">Guided by love and justice. Advocating for every child.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
